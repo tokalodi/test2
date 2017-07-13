@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="ItemDefinition_3" structureRef="Boolean" />
+  <itemDefinition id="ItemDefinition_2" structureRef="Integer" />
+  <itemDefinition id="ItemDefinition_1" structureRef="String" />
+  <process processType="Private" isExecutable="true" id="com.Test" name="ruleFlow" tns:packageName="com.sample" >
+
+    <extensionElements>
+     <tns:import name="com.PBXInformationScreen.PBXInformation" />
+    </extensionElements>
+    <!-- nodes -->
+    <startEvent id="_jbpm-unique-10" name="Start"  isInterrupting="false">
+    </startEvent>
+    <endEvent id="_jbpm-unique-13" name="End" >
+        <terminateEventDefinition />
+    </endEvent>
+    <businessRuleTask id="_jbpm-unique-20" name="commonrules" g:ruleFlowGroup="commonrules" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+
+    <!-- connections -->
+    <sequenceFlow id="_jbpm-unique-20-_jbpm-unique-13" sourceRef="_jbpm-unique-20" targetRef="_jbpm-unique-13" />
+    <sequenceFlow id="_jbpm-unique-10-_jbpm-unique-20" sourceRef="_jbpm-unique-10" targetRef="_jbpm-unique-20" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.Test" >
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-10" >
+        <dc:Bounds x="1" y="102" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-13" >
+        <dc:Bounds x="640" y="134" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-20" >
+        <dc:Bounds x="400" y="100" width="114" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-20-_jbpm-unique-13" >
+        <di:waypoint x="457" y="124" />
+        <di:waypoint x="664" y="124" />
+        <di:waypoint x="664" y="134" />
+        <di:waypoint x="664" y="158" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-10-_jbpm-unique-20" >
+        <di:waypoint x="25" y="126" />
+        <di:waypoint x="457" y="124" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

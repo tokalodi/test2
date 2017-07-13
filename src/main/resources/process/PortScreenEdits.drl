@@ -1,0 +1,123 @@
+//created on: Jul 7, 2017
+package rules
+
+import com.PortInformation.*;
+import java.util.ArrayList;
+
+
+rule "NativeIP"
+ruleflow-group "commonrules"
+    when
+        PortInfo:PortInformation(nativeIpValue==null)
+    then
+        PortInfo.setNativeIpValue("Not a Pos Port");
+        PortInfo.setNativeIpIsUpdatable(false);
+        PortInfo.setNativeIPIsRequired(false);
+end
+
+rule "Service Name"
+ruleflow-group "commonrules"
+when
+	PortInfo:PortInformation(serviceNameValue == null)
+	then 
+		PortInfo.setServiceNameValue("NB-IPVPN");
+		PortInfo.setServiceNameisUpdatable(false);
+		PortInfo.setServiceNameisRequired(false);
+end
+
+rule "PortAction"
+ruleflow-group "commonrules"
+when 
+	PortInfo:PortInformation(actionDropdownList==null)
+	then
+		ArrayList List = new ArrayList();
+		List.add("New");
+		List.add("Change Speed");
+		PortInfo.setActionDropdownList(List);	
+		PortInfo.setActionIsRequired(true);
+		end
+
+rule "PortSpeed"
+ruleflow-group "commonrules"
+when 
+	PortInfo:PortInformation(portSpeedDropdownList==null)
+	then
+		ArrayList List = new ArrayList();
+		List.add("200M");
+		List.add("1 Gig");
+		PortInfo.setPortSpeedDropdownList(List);	
+		PortInfo.setPortSpeedIsRequired(true);
+		PortInfo.setPortSpeedIsUpdatable(true);
+		end
+
+rule "PortBillingOptionEnable"
+ruleflow-group "commonrules"
+when
+	PortInfo:PortInformation(portSpeedIsSelected == true)
+	
+	then
+		ArrayList List = new ArrayList();
+		List.add("None (Fixed Rate)");
+		List.add("Highcap Flex");
+		PortInfo.setPortBillingOptionDropdownList(List);	
+		PortInfo.setPortBillingOptionIsUpdatable(true);
+		PortInfo.setPortBillingOptionIsDisplayed(true);
+		end
+	
+rule "PortBillingOptionDisable"
+ruleflow-group "commonrules"
+when
+	PortInfo:PortInformation(portSpeedIsSelected == false)
+	
+	then
+		PortInfo.setPortBillingOptionDropdownList(null);	
+		PortInfo.setPortBillingOptionIsDisplayed(false);
+		end
+		
+		
+rule "AccessOption"
+ruleflow-group "commonrules1"
+when 
+	PortInfo:PortInformation(accessMethodTypeDropdownList==null)
+then
+	ArrayList List = new ArrayList();
+		List.add("ESP Ethernet Dedicated");
+		List.add("ESP Ethernet Shared");
+		PortInfo.setAccessMethodTypeDropdownList(List);
+		PortInfo.setAccessMethodTypeIsUpdatable(true);
+		
+end
+
+rule "InterconnectType1"
+ruleflow-group "commonrules1"
+when
+PortInfo:PortInformation(accessMethodTypeSelectedValue=="ESP Ethernet Dedicated")
+
+then
+ArrayList List = new ArrayList();
+		List.add("Provider GW Interconnect");
+		PortInfo.setInterconnectTypeDropdownList(List);
+		PortInfo.setInterconnectTypeIsUpdatable(true);
+end
+
+rule "InterconnectType2"
+ruleflow-group "commonrules1"
+when
+PortInfo:PortInformation(accessMethodTypeSelectedValue=="ESP Ethernet Shared")
+
+then
+ArrayList List = new ArrayList();
+		List.add("Direct Connect");
+		PortInfo.setInterconnectTypeDropdownList(List);
+		PortInfo.setInterconnectTypeIsUpdatable(true);
+end
+
+rule "InterconnectType3"
+ruleflow-group "commonrules1"
+when
+PortInfo:PortInformation(accessMethodTypeSelectedValue==null)
+
+then
+		PortInfo.setInterconnectTypeDropdownList(null);
+		PortInfo.setInterconnectTypeIsUpdatable(true);
+end
